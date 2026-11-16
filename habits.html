@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stride | Habit Tracker</title>
+    <meta name="description"
+        content="Build lasting routines with the Stride habit tracker: daily check-ins, monthly calendars, streaks and a focus timer for every habit.">
+    <meta name="theme-color" content="#F5F5F3">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="theme.js"></script>
+
+</head>
+
+<body>
+
+    <div class="dashboard">
+        <!-- MOBILE TOP BAR -->
+        <div class="mobile-topbar">
+            <img class="mobile-brand-logo logo-dark" src="./images/whitelogo.png" alt="Stride logo">
+
+            <img class="mobile-brand-logo logo-light" src="./images/blacklogo.png" alt="Stride logo">
+
+            <button class="menu-toggle" id="menu-toggle" aria-label="Open navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <div class="brand">
+                <img class="logo-dark" src="./images/whitelogo.png" alt="Stride">
+
+                <img class="logo-light" src="./images/blacklogo.png" alt="Stride">
+            </div>
+
+            <p class="menu-title">Menu</p>
+
+            <nav class="menu">
+
+                <a href="index.html?filter=today" class="nav-item">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="12" cy="12" r="3.5" />
+                        <path
+                            d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" />
+                    </svg>
+                    <span>My Day</span>
+                </a>
+
+                <a href="index.html?filter=upcoming" class="nav-item">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="4" y="5" width="16" height="16" rx="2" />
+                        <path d="M8 3v4m8-4v4M4 10h16" />
+                    </svg>
+                    <span>Upcoming</span>
+                </a>
+
+                <a href="index.html?filter=important" class="nav-item">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 3v2m0 14v2M3 12h2m14 0h2" />
+                        <circle cx="12" cy="12" r="8" />
+                        <path d="m12 9 0 3 2 1" />
+                    </svg>
+                    <span>Important</span>
+                </a>
+
+                <a href="index.html?filter=completed" class="nav-item">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M9 11l3 3L22 4" />
+                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+                    </svg>
+                    <span>Completed</span>
+                </a>
+
+            </nav>
+
+            <div class="sidebar-section">
+
+                <p class="sidebar-heading">Workspace</p>
+
+                <nav class="menu">
+
+                    <a href="index.html?filter=all" class="nav-item">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <rect x="5" y="4" width="14" height="17" rx="2" />
+                            <path d="M9 4.5V3h6v1.5M9 12l2 2 4-4" />
+                        </svg>
+                        <span>All Tasks</span>
+                    </a>
+
+                    <a href="index.html#timer-card" class="nav-item">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <circle cx="12" cy="12" r="9" />
+                            <path d="M12 7v5l3 2M12 2v2m0 16v2" />
+                        </svg>
+                        <span>Focus Timer</span>
+                    </a>
+
+                    <a href="habits.html" class="nav-item active" aria-current="page">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M12 21V11" />
+                            <path d="M12 13C7 13 4 10 4 5c5 0 8 3 8 8Z" />
+                            <path d="M12 16c0-5 3-8 8-8 0 5-3 8-8 8Z" />
+                        </svg>
+                        <span>Habit Tracker</span>
+                    </a>
+
+                </nav>
+
+            </div>
+
+            <div class="sidebar-bottom">
+                <p>Make every day count.</p>
+                <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false">Dark mode</button>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+
+
+            <!-- BACK TO DASHBOARD -->
+            <a href="index.html" class="habit-back-link">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M19 12H5M12 19l-7-7 7-7" />
+                </svg>
+                Back to Dashboard
+            </a>
+
+            <!-- HABIT TRACKER PAGE -->
+            <section class="habit-page" id="habit-page">
+
+                <header class="habit-header">
+                    <div>
+                        <p class="header-label">Your daily routine</p>
+                        <h1>Habit Tracker</h1>
+                        <p class="subtitle">Small habits. Big changes.</p>
+                    </div>
+
+                    <button class="habit-add-btn" id="add-habit-btn">
+                        + Add Habit
+                    </button>
+                </header>
+
+                <!-- HABIT STATISTICS -->
+                <div class="habit-stats">
+                    <div class="habit-stat-card">
+                        <span>Today's habits</span>
+                        <h2 id="habit-total">0</h2>
+                    </div>
+
+                    <div class="habit-stat-card">
+                        <span>Completed</span>
+                        <h2 id="habit-completed">0</h2>
+                    </div>
+
+                    <div class="habit-stat-card">
+                        <span>Completion rate</span>
+                        <h2 id="habit-percentage">0%</h2>
+                    </div>
+
+                    <div class="habit-stat-card">
+                        <span>Best streak</span>
+                        <h2 id="habit-best-streak">0</h2>
+                    </div>
+                </div>
+
+                <!-- WEEKLY OVERVIEW -->
+                <div class="card habit-week-card">
+                    <div class="card-heading">
+                        <div>
+                            <h3>This Week</h3>
+                            <p>Your daily habit progress</p>
+                        </div>
+                    </div>
+
+                    <div class="habit-week" id="habit-week"></div>
+                </div>
+
+                <!-- HABIT LIST -->
+                <div class="card habit-list-card">
+                    <div class="card-heading">
+                        <div>
+                            <h3>My Habits</h3>
+                            <p>Keep showing up every day</p>
+                        </div>
+                    </div>
+
+                    <div id="habit-list" class="habit-list"></div>
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <script src="habits.js"></script>
+</body>
+
+</html>

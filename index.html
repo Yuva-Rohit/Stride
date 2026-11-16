@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stride | Productivity Dashboard</title>
+    <meta name="description"
+        content="Stride is a calm productivity dashboard for planning your day, tracking tasks and goals, building habits and staying focused.">
+    <meta name="theme-color" content="#F5F5F3">
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="theme.js"></script>
+</head>
+
+<body>
+    <div class="dashboard">
+        <!-- MOBILE TOP BAR -->
+        <div class="mobile-topbar">
+            <img class="mobile-brand-logo logo-dark" src="./images/whitelogo.png" alt="Stride logo">
+
+            <img class="mobile-brand-logo logo-light" src="./images/blacklogo.png" alt="Stride logo">
+
+            <button class="menu-toggle" id="menu-toggle" aria-label="Open navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <div class="brand">
+                <img class="logo-dark" src="./images/whitelogo.png" alt="Stride">
+                <img class="logo-light" src="./images/blacklogo.png" alt="Stride">
+            </div>
+
+            <p class="menu-title">Menu</p>
+
+            <nav class="menu">
+
+                <button class="nav-item active" data-filter="today">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="12" cy="12" r="3.5" />
+                        <path
+                            d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" />
+                    </svg>
+                    <span>My Day</span>
+                </button>
+
+                <button class="nav-item" data-filter="upcoming">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="4" y="5" width="16" height="16" rx="2" />
+                        <path d="M8 3v4m8-4v4M4 10h16" />
+                    </svg>
+                    <span>Upcoming</span>
+                </button>
+
+                <button class="nav-item" data-filter="important">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 3v2m0 14v2M3 12h2m14 0h2" />
+                        <circle cx="12" cy="12" r="8" />
+                        <path d="m12 9 0 3 2 1" />
+                    </svg>
+                    <span>Important</span>
+                </button>
+
+                <button class="nav-item" data-filter="completed">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M9 11l3 3L22 4" />
+                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+                    </svg>
+                    <span>Completed</span>
+                </button>
+
+            </nav>
+
+            <div class="sidebar-section">
+                <p class="sidebar-heading">Workspace</p>
+
+                <nav class="menu">
+
+                    <button class="nav-item" data-filter="all">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <rect x="5" y="4" width="14" height="17" rx="2" />
+                            <path d="M9 4.5V3h6v1.5M9 12l2 2 4-4" />
+                        </svg>
+                        <span>All Tasks</span>
+                    </button>
+
+                    <button class="nav-item" id="focus-nav">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <circle cx="12" cy="12" r="9" />
+                            <path d="M12 7v5l3 2M12 2v2m0 16v2" />
+                        </svg>
+                        <span>Focus Timer</span>
+                    </button>
+                    <button class="nav-item" id="habits-nav" type="button">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M12 21V11" />
+                            <path d="M12 13C7 13 4 10 4 5c5 0 8 3 8 8Z" />
+                            <path d="M12 16c0-5 3-8 8-8 0 5-3 8-8 8Z" />
+                        </svg>
+                        <span>Habit Tracker</span>
+                    </button>
+
+                </nav>
+            </div>
+
+            <div class="sidebar-bottom">
+                <p>Make every day count.</p>
+                <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false">Dark mode</button>
+            </div>
+
+        </aside>
+
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+
+            <!-- HEADER -->
+            <header class="header">
+
+                <div>
+                    <p class="header-label">Your productivity space</p>
+                    <h1 id="greeting">Good Morning!</h1>
+                    <p class="subtitle">Let's make today productive.</p>
+                </div>
+
+                <div class="header-actions">
+
+                    <div class="header-date">
+                        <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"
+                                class="bi bi-calendar2-event" viewBox="0 0 16 16" aria-hidden="true">
+                                <path
+                                    d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z" />
+                                <path
+                                    d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z" />
+                                <path
+                                    d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5z" />
+                            </svg></span>
+                        <span id="current-date"></span>
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- TOP DASHBOARD -->
+            <section class="top-grid">
+
+                <!-- CALENDAR -->
+                <div class="card calendar-card">
+
+                    <div class="card-heading">
+                        <div>
+                            <h3>Monthly Schedule</h3>
+                            <p>Keep track of your days</p>
+                        </div>
+
+                        <div class="calendar-controls">
+                            <button id="prev-month" aria-label="Previous month">‹</button>
+                            <button id="next-month" aria-label="Next month">›</button>
+                        </div>
+                    </div>
+
+                    <h2 id="month-year"></h2>
+
+                    <div class="calendar-weekdays">
+                        <span>Sun</span>
+                        <span>Mon</span>
+                        <span>Tue</span>
+                        <span>Wed</span>
+                        <span>Thu</span>
+                        <span>Fri</span>
+                        <span>Sat</span>
+                    </div>
+
+                    <div class="calendar-days" id="calendar-days"></div>
+
+                </div>
+
+
+                <!-- MY DAY OVERVIEW -->
+                <div class="card overview-card">
+
+                    <h3>My Day</h3>
+                    <p>Your productivity overview</p>
+
+                    <div class="progress-circle" id="progress-circle">
+                        <span id="progress-percent">0%</span>
+                    </div>
+
+                    <p class="progress-label">Daily Progress</p>
+
+                    <div class="overview-stats">
+
+                        <div>
+                            <h2 id="total-count">0</h2>
+                            <p>Total</p>
+                        </div>
+
+                        <div>
+                            <h2 id="completed-count">0</h2>
+                            <p>Done</p>
+                        </div>
+
+                        <div>
+                            <h2 id="pending-count">0</h2>
+                            <p>Pending</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- UPCOMING TASKS -->
+                <div class="card upcoming-card">
+
+                    <div class="card-heading">
+                        <div>
+                            <h3>Upcoming Tasks</h3>
+                            <p>Your tasks to complete</p>
+                        </div>
+
+                        <span class="small-badge" id="upcoming-number">0</span>
+                    </div>
+
+                    <div class="upcoming-list" id="upcoming-list">
+                        <p class="empty-message">No upcoming tasks.</p>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- BOTTOM DASHBOARD -->
+            <section class="bottom-grid">
+
+                <!-- MONTHLY GOALS -->
+                <div class="card goals-card">
+
+                    <div class="card-heading">
+                        <h3>Monthly Goals</h3>
+                    </div>
+
+                    <div class="goal-list" id="monthly-goals">
+
+                        <label class="goal-item">
+                            <input type="checkbox">
+                            <span>Read 2 books</span>
+                        </label>
+
+                        <label class="goal-item">
+                            <input type="checkbox">
+                            <span>Complete a course</span>
+                        </label>
+
+                        <label class="goal-item">
+                            <input type="checkbox">
+                            <span>Learn JavaScript</span>
+                        </label>
+
+                        <label class="goal-item">
+                            <input type="checkbox">
+                            <span>Build a project</span>
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TASK REMINDERS -->
+                <div class="card reminders-card">
+
+                    <div class="card-heading">
+                        <div>
+                            <h3>Task Reminders</h3>
+                            <p id="task-section-label">Manage your daily tasks</p>
+                        </div>
+                    </div>
+
+                    <form class="add-task" id="task-form">
+
+                        <input type="text" id="task-input" placeholder="What needs to be done?" maxlength="100"
+                            aria-label="Task name" required>
+
+                        <select id="task-priority" aria-label="Task priority">
+                            <option value="Low">Low</option>
+                            <option value="Medium" selected>Medium</option>
+                            <option value="High">High</option>
+                        </select>
+
+                        <input type="date" id="task-date" aria-label="Task due date">
+
+                        <button type="submit" id="add-btn">+ Add</button>
+
+                    </form>
+
+                    <div class="task-list" id="task-list">
+                        <p class="empty-message">No tasks yet. Add your first task!</p>
+                    </div>
+
+                </div>
+
+
+                <!-- WEEKLY GOALS -->
+                <div class="card goals-card">
+
+                    <div class="card-heading">
+                        <h3>Weekly Goals</h3>
+                    </div>
+
+                    <div class="goal-list" id="weekly-goals">
+
+                        <label class="goal-item">
+                            <input type="checkbox">
+                            <span>Finish assignments</span>
+                        </label>
+
+                        <label class="goal-item">
+                            <input type="checkbox">
+                            <span>Exercise daily</span>
+                        </label>
+
+                        <label class="goal-item">
+                            <input type="checkbox">
+                            <span>Practise coding</span>
+                        </label>
+
+                        <label class="goal-item">
+                            <input type="checkbox">
+                            <span>Read every day</span>
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- FOOTER WIDGETS -->
+            <section class="footer-grid">
+
+                <!-- POMODORO TIMER -->
+                <div class="timer-card" id="timer-card">
+
+                    <div class="timer-info">
+                        <p>Pomodoro timer</p>
+                        <h1 id="timer">25:00</h1>
+                        <span id="timer-status">Time to focus!</span>
+                    </div>
+
+                    <div class="timer-actions">
+
+                        <button id="timer-add" class="timer-add">+ Add</button>
+
+                        <button id="start-btn" class="timer-play" aria-label="Start timer">▶</button>
+
+                        <button id="reset-btn" class="timer-reset" aria-label="Reset timer">↻</button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- DAILY AFFIRMATION -->
+                <div class="card affirmation-card">
+
+                    <div class="card-heading">
+                        <h3>Daily Affirmation</h3>
+                    </div>
+
+                    <p id="affirmation">
+                        Small steps every day lead to big achievements.
+                    </p>
+
+                    <button id="new-quote">New affirmation</button>
+
+                </div>
+
+            </section>
+
+            <footer class="footer">
+                Made with focus and consistency. Stride
+            </footer>
+
+        </main>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
